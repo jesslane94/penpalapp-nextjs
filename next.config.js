@@ -3,6 +3,14 @@ const nextConfig = {
   images: {
     domains: ['firebasestorage.googleapis.com'],
   },
+  webpack: (config, context) => {
+    // console.log(config)
+    config.experiments = {
+      ...config.experiments,
+      asyncWebAssembly: true,
+    };
+    return config;
+  }
 }
 
 module.exports = nextConfig

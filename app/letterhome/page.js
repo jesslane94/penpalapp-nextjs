@@ -12,6 +12,9 @@ import * as Sentry from "@sentry/nextjs";
 import { useRouter } from "next/navigation";
 import { FaUserCircle, FaCog, FaBell, FaPen } from "react-icons/fa";
 
+import { saveMessagingDeviceToken } from "@/app/firebase/messaging";
+import { FCM_PUSH } from "@/app/utils/sendMessage";
+
 import {
   fetchDraft,
   fetchLetterbox,
@@ -84,6 +87,12 @@ export default function Home() {
 
     fetchUserData();
   }, []);
+
+  const handleSubmit = async () => {
+    saveMessagingDeviceToken();
+    FCM_PUSH();
+  };
+  
 
   return (
     <div className="bg-gray-100 min-h-screen py-6">
@@ -173,6 +182,9 @@ export default function Home() {
             )}
           </section>
         </main>
+        <div>
+        <button onClick={handleSubmit} className="bg-red-500 text-white py-2 px-4 rounded">Allow Notifications</button>
+        </div>
         <BottomNavBar />
       </div>
     </div>
